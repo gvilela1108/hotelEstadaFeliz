@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <style>
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            /*background: green;*/
+            width: 100%;
+        }
+
+        main {
+            padding-bottom: 10px;
+        }
+
+        /* Sidebar */
+        #sidebar-wrapper {
+            z-index: 10000;
+            position: absolute;
+            width: 200px;
+            height: 100%;
+            overflow-y: hidden;
+            background: #2c3e50;
+            /*border: 2px solid red;*/
+            /*opacity: 0.9;*/
+            top: 0px;
+        }
+
+        .glyphicon {
+            margin-right: 10px;
+        }
+
+        .panel-body {
+            padding: 0px;
+        }
+
+        .panel-body table tr td {
+            padding-left: 15px
+        }
+
+        .panel-body .table {
+            margin-bottom: 0px;
+        }
+
+        .panel-group a {
+            display: block;
+            text-decoration: none;
+            color: #ddd;
+        }
+
+        .panel-group tr:hover {
+            background: #4c5b6b;
+        }
+
+        .panel-group tr {
+            background: #36485b;
+        }
+
+        /* Navegador */
+        #navPrincipal {
+            padding-left: 56px;
+        }
+
+        /* Menu */
+        #divAbreMenu {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor:pointer;
+        }
+
+        /* Área principal */
+        main {
+            padding-top: 10px;
+        }
+      
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <!-- Fixed navbar -->
+        <nav id="navPrincipal" class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+            <div id="divAbreMenu" class="text-left btnMenu"><img src="../Images/PNG/32/seta-direita-abre-menu.png" class="img-fluid" alt="Esconder" /></div>
+            <a class="navbar-brand" href="#">Hotel Estada Feliz</a>
+            <!--<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>-->
+            <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+                <ul class="navbar-nav mr-auto">
+                    <!--<li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>-->
+                </ul>
+               
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" class="collapse">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a id="aCollapse" data-toggle="collapse" href="#">
+                            <span>
+                            </span>
+                            <div class="text-right btnMenu"><img src="../images/PNG/32/seta-esquerda-menu.png" class="img-fluid" alt="Esconder" /></div>
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#menuConfiguracao">
+                            <!-- TODO - inserir icone para identificar o menu aberto e fechado -->
+                            <span> 
+                            </span>Clientes
+                        </a>
+                    </h4>
+                </div>
+                <div id="menuConfiguracao" class="panel-collapse collapse in MenuPrincipal">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr id="trUsuariosCadastrar">
+                                <td>
+                                    <span></span><a href="#">Cadastrar</a>
+                                </td>
+                            </tr>
+                            <tr id="trUsuariosPesquisar">
+                                <td>
+                                    <span ></span><a href="#">Pesquisar</a>
+                                </td>
+                            </tr>                           
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+
+    <main role="main" class="container-fluid">
+        <h3 class="mt-5">Cadastro de Clientes</h3>
+        
+        <form>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="txtCPFCliente">CPF</label>
+                        <input type="text" class="form-control" id="txtCPFCliente" placeholder="999.999.999-99">
+                    </div>
+                    <div class="col-md-9">
+                        <label for="txtNomeCliente">Nome</label>
+                        <input type="text" class="form-control" id="txtNomeCliente" placeholder="Digite o nome completo">
+                    </div>
+                </div>
+                <!--<label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="txtCEPCliente">CEP</label>
+                        <input type="text" class="form-control" id="txtCEPCliente" placeholder="Ex: 9999-99">
+                    </div>
+                    <div class="col-md-9">
+                        <label for="txtEnderecoCliente">Endereço</label>
+                        <input type="text" class="form-control" id="txtEnderecoCliente" placeholder="Ex: Av. Brasil, 123">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="txtComplementoCliente">Complemento</label>
+                        <input type="text" class="form-control" id="txtComplementoCliente" placeholder="Ex: ap 01 bl A">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="txtBairroCliente">Bairro</label>
+                        <input type="text" class="form-control" id="txtBairroCliente" placeholder="Ex: Centro">
+                    </div>  
+                    <div class="col-md-1">
+                        <label for="txtUFCliente">UF</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option value="SP">SP</option>
+                            <option value="RJ">RJ</option>
+                            <option value="MT">MT</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="txtCidadeCliente">Cidade</label>
+                        <input type="text" class="form-control" id="txtCidadeCliente" placeholder="Ex: São Paulo">
+                    </div>             
+                </div>
+              
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="txtTelefoneCliente">Telefone</label>
+                        <input type="text" class="form-control" id="txtTelefoneCliente" placeholder="(99)99999-9999">
+                    </div>
+                    <div class="col-md-9">
+                        <label for="txtEmailCliente">E-mail</label>
+                        <input type="email" class="form-control" id="txtEmailCliente" placeholder="Ex: nome@email.com">
+                    </div>                    
+                </div>
+            </div>
+              
+                <button id="btnEnviar" type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container-fluid bg-primary" >
+            <span class="col-12">@2018 | Todos os direitos reservados</span>
+        </div>
+    </footer>
+    
+    <script>
+        $(".btnMenu").on("click", function (e) {
+            $("#sidebar-wrapper").animate({
+                width: 'toggle'
+            });
+        });
+
+        $(".MenuPrincipal tr").on("click", function (e) {
+           // TODO - acesso dos botões
+        });
+
+    </script>
+
+</body>
+</html>
