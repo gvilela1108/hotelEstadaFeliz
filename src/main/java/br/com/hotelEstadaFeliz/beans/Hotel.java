@@ -4,12 +4,9 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 public class Hotel {
 
     private String id;
-    @NotBlank(message="Nome obrigatório")
     private String nome;
     private Endereco endereco;
     @NotNull(message="CNPJ obrigatório")

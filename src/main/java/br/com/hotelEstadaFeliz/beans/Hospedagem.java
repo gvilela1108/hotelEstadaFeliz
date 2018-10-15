@@ -1,6 +1,5 @@
 package br.com.hotelEstadaFeliz.beans;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,7 +12,7 @@ public class Hospedagem {
 	private String idHotel;
 	@NotBlank(message="Codigo quarto obrigatório")
 	private String idQuarto;
-	private ArrayList<Consumo> consumo;
+	private Consumo consumo;
 	private String checkin;
 	private String checkout;
 	private Date dataCriacao;
@@ -44,10 +43,10 @@ public class Hospedagem {
 	public void setIdQuarto(String idQuarto) {
 		this.idQuarto = idQuarto;
 	}
-	public ArrayList<Consumo> getConsumo() {
+	public Consumo getConsumo() {
 		return consumo;
 	}
-	public void setConsumo(ArrayList<Consumo> consumo) {
+	public void setConsumo(Consumo consumo) {
 		this.consumo = consumo;
 	}
 	public String getCheckin() {

@@ -11,10 +11,9 @@ public class Produto {
 	private String id;
 	@NotBlank(message="Nome do produto obrigatório")
 	private String nome;
-	@NotBlank(message="Preço do produto obrigatório")
+	@NotNull(message="Preço do produto obrigatório")
 	private Float preco;
 	private String descricao;
-	@NotBlank(message="Status do produto obrigatório")
 	private String status;
 	@NotNull(message="Quantidade obrigatória")
 	private Long quantidade;

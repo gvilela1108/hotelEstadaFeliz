@@ -1,14 +1,16 @@
 package br.com.hotelEstadaFeliz.rest;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,7 @@ import br.com.hotelEstadaFeliz.dto.DadosFuncionario;
 import br.com.hotelEstadaFeliz.service.FuncionarioService;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/")
 public class FuncionarioRest {
@@ -32,12 +35,13 @@ public class FuncionarioRest {
 	private static final int inserirFuncionarioAcao = 1;
 	private static final int atualizarFuncionarioAcao = 2;
 	private static final int deletarFuncionarioAcao = 3;
+	private static final int consultarTodos = 4;
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado funcionario", 
 			notes="Essa operação tem como objetivo consultar os dados especificos de um funcionario")
 	@PostMapping("/consultarFuncionario")
-	private Map<String,Object> consultarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {	
+	private List<Funcionario> consultarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {	
 		return manterDadosFuncionario(dadosFuncionario,errors,consultarFuncionarioAcao);
 	}
 	
@@ -45,7 +49,7 @@ public class FuncionarioRest {
 			value="Cadastrar os dados de determinado funcionario", 
 			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um funcionario")
 	@PostMapping("/inserirFuncionario")
-	private Map<String,Object> inserirFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
+	private List<Funcionario> inserirFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
 		return manterDadosFuncionario(dadosFuncionario,errors,inserirFuncionarioAcao);
 	}
 	
@@ -53,7 +57,7 @@ public class FuncionarioRest {
 			value="Atualizar os dados de determinado funcionario", 
 			notes="Essa operação tem como objetivo atualizar os dados especificos de um funcionario")
 	@PutMapping("/atualizarFuncionario")
-	private Map<String,Object> atualizarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
+	private List<Funcionario> atualizarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
 		return manterDadosFuncionario(dadosFuncionario,errors,atualizarFuncionarioAcao);
 	}
 	
@@ -61,17 +65,26 @@ public class FuncionarioRest {
 			value="Remover os dados de determinado funcionario", 
 			notes="Essa operação tem como objetivo remover os dados especificos de um funcionario")
 	@DeleteMapping("/deletarFuncionario")
-	private Map<String,Object> excluirFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
+	private List<Funcionario> excluirFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
 		return manterDadosFuncionario(dadosFuncionario,errors,deletarFuncionarioAcao);		
 	}
 	
-	private Map<String,Object> manterDadosFuncionario(DadosFuncionario dadosFuncionario, Errors errors, int idAcao ) throws Exception{
+	@ApiOperation(
+			value="Consultar os dados de todos funcionarios", 
+			notes="Essa operação tem como objetivo consultar os dados especificos de todos os funcionarios")
+	@GetMapping("/consultarTodosFuncionarios")
+	private List<Funcionario> consultarTodosFuncionarios() throws Exception {
+		return manterDadosFuncionario(null,null,consultarTodos);		
+	}
+	
+	private List<Funcionario> manterDadosFuncionario(DadosFuncionario dadosFuncionario, Errors errors, int idAcao ) throws Exception{
 		
 		Funcionario funcionario = new Funcionario();
-		Map<String, Object> retorno = new HashMap<String, Object>();
+		List<Funcionario> listaTodos = new ArrayList<Funcionario>();
+		
 		String erroDadosInformadosFuncionario = "";
 		
-		if (errors.hasErrors()) {
+		if (idAcao != consultarTodos && errors.hasErrors()) {
 			erroDadosInformadosFuncionario = errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(","));
 		} else {
 			TipoAcao tipoAcao = TipoAcao.getTipoAcaoByCode(idAcao);
@@ -90,17 +103,25 @@ public class FuncionarioRest {
 				case DELETAR:
 					funcionario = funcionarioService.deletarFuncionario(dadosFuncionario);
 					break;
+				case CONSULTAR_TODOS:
+					listaTodos = funcionarioService.consultarTodos();
+					break;					
 				default:
 					erroDadosInformadosFuncionario += "Tipo Ação inválido";
 					break;
 			}
 			
 		}
+
+		List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
+
+		if(funcionario.getCpf() != null ) {
+			listaFuncionario.add(funcionario);
+		} else {
+			listaFuncionario = listaTodos;
+		}
 		
-		retorno.put("errosDadosInformados", erroDadosInformadosFuncionario);
-		retorno.put("funcionario", funcionario);
-		
-		return retorno;
+		return listaFuncionario;
 		
 	}
 }

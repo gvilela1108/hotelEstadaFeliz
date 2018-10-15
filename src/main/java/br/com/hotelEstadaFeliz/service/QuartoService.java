@@ -1,6 +1,7 @@
 package br.com.hotelEstadaFeliz.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,5 +153,9 @@ public class QuartoService {
 		quarto.setDataAlteracao(dadosQuarto.getDataAlteracao());
 
 		return quartoRepository.save(quarto);
+	}
+	
+	public List<Quarto> consultarTodos() {
+		return quartoRepository.findAll();
 	}
 }

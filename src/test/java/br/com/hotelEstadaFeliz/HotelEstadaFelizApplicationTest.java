@@ -1,8 +1,10 @@
 package br.com.hotelEstadaFeliz;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Map;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +22,13 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.hotelEstadaFeliz.beans.Cliente;
+import br.com.hotelEstadaFeliz.beans.Funcionario;
+import br.com.hotelEstadaFeliz.beans.Hospedagem;
+import br.com.hotelEstadaFeliz.beans.Hotel;
+import br.com.hotelEstadaFeliz.beans.Login;
+import br.com.hotelEstadaFeliz.beans.Produto;
+import br.com.hotelEstadaFeliz.beans.Quarto;
 import br.com.hotelEstadaFeliz.dto.DadosCliente;
 import br.com.hotelEstadaFeliz.dto.DadosFuncionario;
 import br.com.hotelEstadaFeliz.dto.DadosHospedagem;
@@ -27,7 +36,6 @@ import br.com.hotelEstadaFeliz.dto.DadosHotel;
 import br.com.hotelEstadaFeliz.dto.DadosLogin;
 import br.com.hotelEstadaFeliz.dto.DadosProduto;
 import br.com.hotelEstadaFeliz.dto.DadosQuarto;
-import junit.framework.Assert;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -46,18 +54,25 @@ public class HotelEstadaFelizApplicationTest {
     public void doLogin() throws JsonProcessingException {
     	DadosLogin login = new DadosLogin();
     	login.setEmail("a@a.com");
-    	login.setSenha("teste");
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/login",login, Map.class);
-    	Assert.assertTrue(map.containsKey("tipoLogin"));
+    	login.setSenha("asdf");
+    	List<Login> teste = restTemplate.postForObject(BASE_PATH + "/login",login, List.class);
+    	assertNotNull(teste);
     }
-     
+    
+    @Test
+    public void getConsultarTodosClienteTest() throws JsonProcessingException{
+    	List<Cliente> teste = restTemplate.getForObject(BASE_PATH + "/consultarTodosClientes", List.class);
+    	assertNotNull(teste);
+    }
+    
+    
     @Test
     public void getConsultarClienteTest() throws JsonProcessingException{
     	DadosCliente cliente = new DadosCliente();
     	cliente.setCpf(12345678903l);
     	cliente.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/consultarCliente",cliente, Map.class);
-    	Assert.assertTrue(map.containsKey("cliente"));
+    	List<Cliente> teste = restTemplate.postForObject(BASE_PATH + "/consultarCliente",cliente, List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -65,8 +80,8 @@ public class HotelEstadaFelizApplicationTest {
     	DadosCliente cliente = new DadosCliente();
     	cliente.setCpf(12345678903l);
     	cliente.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/inserirCliente",cliente, Map.class);
-    	Assert.assertTrue(map.containsKey("cliente"));
+    	List<Cliente> teste = restTemplate.postForObject(BASE_PATH + "/inserirCliente",cliente, List.class);
+    	assertNotNull(teste);
     }
 
     @Test
@@ -80,9 +95,9 @@ public class HotelEstadaFelizApplicationTest {
     	
     	URI uri = new URI(BASE_PATH + "/atualizarCliente");
     	RequestEntity<DadosCliente> requestEntity = RequestEntity.put(uri).body(cliente);
-    	ResponseEntity<Map> result = restTemplate.exchange(requestEntity, Map.class);
+    	ResponseEntity<List> result = restTemplate.exchange(requestEntity, List.class);
  
-    	Assert.assertTrue(result.getBody().containsKey("cliente"));
+    	assertNotNull(result);
     }
     
     @Test
@@ -99,18 +114,25 @@ public class HotelEstadaFelizApplicationTest {
         headers.setContentType(MediaType.APPLICATION_JSON) ;
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(jsonInString, headers);
-        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, Map.class);
-        Assert.assertTrue(result.getBody().containsKey("cliente"));
+        ResponseEntity<List> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, List.class);
+        assertNotNull(result);
         
     }
+    
+    @Test
+    public void getConsultarTodosFuncionarioTest() throws JsonProcessingException{
+    	List<Funcionario> teste = restTemplate.getForObject(BASE_PATH + "/consultarTodosFuncionarios", List.class);
+    	assertNotNull(teste);
+    }
+    
     
     @Test
     public void getConsultarFuncionarioTest() throws JsonProcessingException{
     	DadosFuncionario funcionario = new DadosFuncionario();
     	funcionario.setCpf(12345678903l);
     	funcionario.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/consultarFuncionario",funcionario, Map.class);
-    	Assert.assertTrue(map.containsKey("funcionario"));
+    	List<Funcionario> teste = restTemplate.postForObject(BASE_PATH + "/consultarFuncionario",funcionario, List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -118,8 +140,8 @@ public class HotelEstadaFelizApplicationTest {
     	DadosFuncionario funcionario = new DadosFuncionario();
     	funcionario.setCpf(12345678903l);
     	funcionario.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/inserirFuncionario",funcionario, Map.class);
-    	Assert.assertTrue(map.containsKey("funcionario"));
+    	List<Funcionario> teste = restTemplate.postForObject(BASE_PATH + "/inserirFuncionario",funcionario, List.class);
+    	assertNotNull(teste);
     }
 
     @Test
@@ -133,14 +155,15 @@ public class HotelEstadaFelizApplicationTest {
     	
     	URI uri = new URI(BASE_PATH + "/atualizarFuncionario");
     	RequestEntity<DadosFuncionario> requestEntity = RequestEntity.put(uri).body(funcionario);
-    	ResponseEntity<Map> result = restTemplate.exchange(requestEntity, Map.class);
+    	ResponseEntity<List> result = restTemplate.exchange(requestEntity, List.class);
  
-    	Assert.assertTrue(result.getBody().containsKey("funcionario"));
+    	assertNotNull(result);
     }
     
     @Test
     public void excluirFuncionarioTest() throws JsonProcessingException, URISyntaxException{
         String url = BASE_PATH + "/deletarFuncionario";
+
 
     	DadosFuncionario funcionario = new DadosFuncionario();
     	funcionario.setCpf(12345678903l);
@@ -152,18 +175,25 @@ public class HotelEstadaFelizApplicationTest {
         headers.setContentType(MediaType.APPLICATION_JSON) ;
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(jsonInString, headers);
-        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, Map.class);
-        Assert.assertTrue(result.getBody().containsKey("funcionario"));
+        ResponseEntity<List> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, List.class);
+        assertNotNull(result);
         
     }
+    
+    @Test
+    public void getConsultarTodosHospedagemTest() throws JsonProcessingException{
+    	List<Hospedagem> teste = restTemplate.getForObject(BASE_PATH + "/consultarTodasHospedagens", List.class);
+    	assertNotNull(teste);
+    }
+    
     
     @Test
     public void getConsultarHospedagemTest() throws JsonProcessingException{
     	DadosHospedagem hospedagem = new DadosHospedagem();
     	hospedagem.setIdQuarto("1");
     	hospedagem.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/consultarHospedagem",hospedagem, Map.class);
-    	Assert.assertTrue(map.containsKey("hospedagem"));
+    	List<Hospedagem> teste = restTemplate.postForObject(BASE_PATH + "/consultarHospedagem",hospedagem, List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -171,8 +201,8 @@ public class HotelEstadaFelizApplicationTest {
     	DadosHospedagem hospedagem = new DadosHospedagem();
     	hospedagem.setIdQuarto("1");
     	hospedagem.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/inserirHospedagem",hospedagem, Map.class);
-    	Assert.assertTrue(map.containsKey("hospedagem"));
+    	List<Hospedagem> teste = restTemplate.postForObject(BASE_PATH + "/inserirHospedagem",hospedagem, List.class);
+    	assertNotNull(teste);
     }
 
     @Test
@@ -186,9 +216,9 @@ public class HotelEstadaFelizApplicationTest {
     	
     	URI uri = new URI(BASE_PATH + "/atualizarHospedagem");
     	RequestEntity<DadosHospedagem> requestEntity = RequestEntity.put(uri).body(hospedagem);
-    	ResponseEntity<Map> result = restTemplate.exchange(requestEntity, Map.class);
+    	ResponseEntity<List> result = restTemplate.exchange(requestEntity, List.class);
  
-    	Assert.assertTrue(result.getBody().containsKey("hospedagem"));
+    	assertNotNull(result);
     }
     
     @Test
@@ -205,9 +235,15 @@ public class HotelEstadaFelizApplicationTest {
         headers.setContentType(MediaType.APPLICATION_JSON) ;
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(jsonInString, headers);
-        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, Map.class);
-        Assert.assertTrue(result.getBody().containsKey("hospedagem"));
+        ResponseEntity<List> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, List.class);
+        assertNotNull(result);
         
+    }
+    
+    @Test
+    public void getConsultarTodosHotelTest() throws JsonProcessingException{
+    	List<Hotel> teste = restTemplate.getForObject(BASE_PATH + "/consultarTodosHoteis", List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -215,8 +251,8 @@ public class HotelEstadaFelizApplicationTest {
     	DadosHotel hotel = new DadosHotel();
     	hotel.setId("1");
     	hotel.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/consultarHotel",hotel, Map.class);
-    	Assert.assertTrue(map.containsKey("hotel"));
+    	List<Hotel> teste = restTemplate.postForObject(BASE_PATH + "/consultarHotel",hotel, List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -224,8 +260,8 @@ public class HotelEstadaFelizApplicationTest {
     	DadosHotel hotel = new DadosHotel();
     	hotel.setId("1");
     	hotel.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/inserirHotel",hotel, Map.class);
-    	Assert.assertTrue(map.containsKey("hotel"));
+    	List<Hotel> teste = restTemplate.postForObject(BASE_PATH + "/inserirHotel",hotel, List.class);
+    	assertNotNull(teste);
     }
 
     @Test
@@ -239,9 +275,9 @@ public class HotelEstadaFelizApplicationTest {
     	
     	URI uri = new URI(BASE_PATH + "/atualizarHotel");
     	RequestEntity<DadosHotel> requestEntity = RequestEntity.put(uri).body(hotel);
-    	ResponseEntity<Map> result = restTemplate.exchange(requestEntity, Map.class);
+    	ResponseEntity<List> result = restTemplate.exchange(requestEntity, List.class);
  
-    	Assert.assertTrue(result.getBody().containsKey("hotel"));
+    	assertNotNull(result);
     }
     
     @Test
@@ -258,18 +294,25 @@ public class HotelEstadaFelizApplicationTest {
         headers.setContentType(MediaType.APPLICATION_JSON) ;
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(jsonInString, headers);
-        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, Map.class);
-        Assert.assertTrue(result.getBody().containsKey("hotel"));
+        ResponseEntity<List> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, List.class);
+        assertNotNull(result);
         
     }
+    
+    @Test
+    public void getConsultarTodosProdutoTest() throws JsonProcessingException{
+    	List<Produto> teste = restTemplate.getForObject(BASE_PATH + "/consultarTodosProdutos", List.class);
+    	assertNotNull(teste);
+    }
+    
     
     @Test
     public void getConsultarProdutoTest() throws JsonProcessingException{
     	DadosProduto produto = new DadosProduto();
     	produto.setId("1");
     	produto.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/consultarProduto",produto, Map.class);
-    	Assert.assertTrue(map.containsKey("produto"));
+    	List<Produto> teste = restTemplate.postForObject(BASE_PATH + "/consultarProduto",produto, List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -277,8 +320,8 @@ public class HotelEstadaFelizApplicationTest {
     	DadosProduto produto = new DadosProduto();
     	produto.setId("1");
     	produto.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/inserirProduto",produto, Map.class);
-    	Assert.assertTrue(map.containsKey("produto"));
+    	List<Produto> teste = restTemplate.postForObject(BASE_PATH + "/inserirProduto",produto, List.class);
+    	assertNotNull(teste);
     }
 
     @Test
@@ -292,9 +335,9 @@ public class HotelEstadaFelizApplicationTest {
     	
     	URI uri = new URI(BASE_PATH + "/atualizarProduto");
     	RequestEntity<DadosProduto> requestEntity = RequestEntity.put(uri).body(produto);
-    	ResponseEntity<Map> result = restTemplate.exchange(requestEntity, Map.class);
+    	ResponseEntity<List> result = restTemplate.exchange(requestEntity, List.class);
  
-    	Assert.assertTrue(result.getBody().containsKey("produto"));
+    	assertNotNull(result);
     }
     
     @Test
@@ -311,18 +354,25 @@ public class HotelEstadaFelizApplicationTest {
         headers.setContentType(MediaType.APPLICATION_JSON) ;
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(jsonInString, headers);
-        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, Map.class);
-        Assert.assertTrue(result.getBody().containsKey("produto"));
+        ResponseEntity<List> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, List.class);
+        assertNotNull(result);
         
     }
+    
+    @Test
+    public void getConsultarTodosQuartoTest() throws JsonProcessingException{
+    	List<Quarto> teste = restTemplate.getForObject(BASE_PATH + "/consultarTodosQuartos", List.class);
+    	assertNotNull(teste);
+    }
+    
     
     @Test
     public void getConsultarQuartoTest() throws JsonProcessingException{
     	DadosQuarto quarto = new DadosQuarto();
     	quarto.setId("1");
     	quarto.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/consultarQuarto",quarto, Map.class);
-    	Assert.assertTrue(map.containsKey("quarto"));
+    	List<Quarto> teste = restTemplate.postForObject(BASE_PATH + "/consultarQuarto",quarto, List.class);
+    	assertNotNull(teste);
     }
     
     @Test
@@ -330,13 +380,13 @@ public class HotelEstadaFelizApplicationTest {
     	DadosQuarto quarto = new DadosQuarto();
     	quarto.setId("1");
     	quarto.setIdTipoFuncionario(1l);
-    	Map<String,Object> map = restTemplate.postForObject(BASE_PATH + "/inserirQuarto",quarto, Map.class);
-    	Assert.assertTrue(map.containsKey("quarto"));
+    	List<Quarto> teste = restTemplate.postForObject(BASE_PATH + "/inserirQuarto",quarto, List.class);
+    	assertNotNull(teste);
     }
 
     @Test
     public void atualizarQuartoTest() throws JsonProcessingException, URISyntaxException{
-    	DadosQuarto quarto = new DadosQuarto();
+     	DadosQuarto quarto = new DadosQuarto();
     	quarto.setId("1");
     	quarto.setIdTipoFuncionario(1l);
     	quarto.setDescricao("teste");
@@ -345,9 +395,9 @@ public class HotelEstadaFelizApplicationTest {
     	
     	URI uri = new URI(BASE_PATH + "/atualizarQuarto");
     	RequestEntity<DadosQuarto> requestEntity = RequestEntity.put(uri).body(quarto);
-    	ResponseEntity<Map> result = restTemplate.exchange(requestEntity, Map.class);
+    	ResponseEntity<List> result = restTemplate.exchange(requestEntity, List.class);
  
-    	Assert.assertTrue(result.getBody().containsKey("quarto"));
+    	assertNotNull(result);
     }
     
     @Test
@@ -364,8 +414,9 @@ public class HotelEstadaFelizApplicationTest {
         headers.setContentType(MediaType.APPLICATION_JSON) ;
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(jsonInString, headers);
-        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, Map.class);
-        Assert.assertTrue(result.getBody().containsKey("quarto"));
+        ResponseEntity<List> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, List.class);
+        assertNotNull(result);
         
     }
+    
 }

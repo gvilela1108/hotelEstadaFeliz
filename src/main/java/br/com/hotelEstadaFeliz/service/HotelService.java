@@ -1,6 +1,7 @@
 package br.com.hotelEstadaFeliz.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -148,7 +149,10 @@ public class HotelService {
 		hotel.setTelefone(dadosHotel.getTelefone());
 		hotel.setDataCriacao(dadosHotel.getDataCriacao());	
 		hotel.setDataAlteracao(dadosHotel.getDataAlteracao());
-	
 		return hotelRepository.save(hotel);
+	}
+	
+	public List<Hotel> consultarTodos() {
+		return hotelRepository.findAll();
 	}
 }

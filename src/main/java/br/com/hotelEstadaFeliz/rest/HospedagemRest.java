@@ -1,14 +1,16 @@
 package br.com.hotelEstadaFeliz.rest;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,7 @@ import br.com.hotelEstadaFeliz.dto.DadosHospedagem;
 import br.com.hotelEstadaFeliz.service.HospedagemService;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/")
 public class HospedagemRest {
@@ -32,46 +35,56 @@ public class HospedagemRest {
 	private static final int inserirHospedagemAcao = 1;
 	private static final int atualizarHospedagemAcao = 2;
 	private static final int deletarHospedagemAcao = 3;
+	private static final int consultarTodos = 4;
 	
 	@ApiOperation(
-			value="Consultar os dados de determinada hospedagem", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de uma hospedagem")
+			value="Consultar os dados de determinado hospedagem", 
+			notes="Essa operação tem como objetivo consultar os dados especificos de um hospedagem")
 	@PostMapping("/consultarHospedagem")
-	private Map<String,Object> consultarHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {	
+	private List<Hospedagem> consultarHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {	
 		return manterDadosHospedagem(dadosHospedagem,errors,consultarHospedagemAcao);
 	}
 	
 	@ApiOperation(
-			value="Cadastrar os dados de determinada hospedagem", 
-			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de uma hospedagem")
+			value="Cadastrar os dados de determinado hospedagem", 
+			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um hospedagem")
 	@PostMapping("/inserirHospedagem")
-	private Map<String,Object> inserirHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
+	private List<Hospedagem> inserirHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
 		return manterDadosHospedagem(dadosHospedagem,errors,inserirHospedagemAcao);
 	}
 	
 	@ApiOperation(
-			value="Atualizar os dados de determinada hospedagem", 
-			notes="Essa operação tem como objetivo atualizar os dados especificos de uma hospedagem")
+			value="Atualizar os dados de determinado hospedagem", 
+			notes="Essa operação tem como objetivo atualizar os dados especificos de um hospedagem")
 	@PutMapping("/atualizarHospedagem")
-	private Map<String,Object> atualizarHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
+	private List<Hospedagem> atualizarHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
 		return manterDadosHospedagem(dadosHospedagem,errors,atualizarHospedagemAcao);
 	}
 	
 	@ApiOperation(
-			value="Remover os dados de determinada hospedagem", 
-			notes="Essa operação tem como objetivo remover os dados especificos de uma hospedagem")
+			value="Remover os dados de determinado hospedagem", 
+			notes="Essa operação tem como objetivo remover os dados especificos de um hospedagem")
 	@DeleteMapping("/deletarHospedagem")
-	private Map<String,Object> excluirHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
+	private List<Hospedagem> excluirHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
 		return manterDadosHospedagem(dadosHospedagem,errors,deletarHospedagemAcao);		
 	}
 	
-	private Map<String,Object> manterDadosHospedagem(DadosHospedagem dadosHospedagem, Errors errors, int idAcao ) throws Exception{
+	@ApiOperation(
+			value="Consultar os dados de todas hospedagens", 
+			notes="Essa operação tem como objetivo consultar os dados especificos de todos as hospedagens")
+	@GetMapping("/consultarTodasHospedagens")
+	private List<Hospedagem> consultarTodosHospedagems() throws Exception {
+		return manterDadosHospedagem(null,null,consultarTodos);		
+	}
+	
+	private List<Hospedagem> manterDadosHospedagem(DadosHospedagem dadosHospedagem, Errors errors, int idAcao ) throws Exception{
 		
 		Hospedagem hospedagem = new Hospedagem();
-		Map<String, Object> retorno = new HashMap<String, Object>();
+		List<Hospedagem> listaTodos = new ArrayList<Hospedagem>();
+		
 		String erroDadosInformadosHospedagem = "";
 		
-		if (errors.hasErrors()) {
+		if (idAcao != consultarTodos && errors.hasErrors()) {
 			erroDadosInformadosHospedagem = errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(","));
 		} else {
 			TipoAcao tipoAcao = TipoAcao.getTipoAcaoByCode(idAcao);
@@ -90,17 +103,25 @@ public class HospedagemRest {
 				case DELETAR:
 					hospedagem = hospedagemService.deletarHospedagem(dadosHospedagem);
 					break;
+				case CONSULTAR_TODOS:
+					listaTodos = hospedagemService.consultarTodos();
+					break;					
 				default:
 					erroDadosInformadosHospedagem += "Tipo Ação inválido";
 					break;
 			}
 			
 		}
+
+		List<Hospedagem> listaHospedagem = new ArrayList<Hospedagem>();
+
+		if(hospedagem.getId() != null ) {
+			listaHospedagem.add(hospedagem);
+		} else {
+			listaHospedagem = listaTodos;
+		}
 		
-		retorno.put("errosDadosInformados", erroDadosInformadosHospedagem);
-		retorno.put("hospedagem", hospedagem);
-		
-		return retorno;
+		return listaHospedagem;
 		
 	}
 }

@@ -1,14 +1,16 @@
 package br.com.hotelEstadaFeliz.rest;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,7 @@ import br.com.hotelEstadaFeliz.dto.DadosQuarto;
 import br.com.hotelEstadaFeliz.service.QuartoService;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/")
 public class QuartoRest {
@@ -32,12 +35,13 @@ public class QuartoRest {
 	private static final int inserirQuartoAcao = 1;
 	private static final int atualizarQuartoAcao = 2;
 	private static final int deletarQuartoAcao = 3;
+	private static final int consultarTodos = 4;
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado quarto", 
 			notes="Essa operação tem como objetivo consultar os dados especificos de um quarto")
 	@PostMapping("/consultarQuarto")
-	private Map<String,Object> consultarQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {	
+	private List<Quarto> consultarQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {	
 		return manterDadosQuarto(dadosQuarto,errors,consultarQuartoAcao);
 	}
 	
@@ -45,7 +49,7 @@ public class QuartoRest {
 			value="Cadastrar os dados de determinado quarto", 
 			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um quarto")
 	@PostMapping("/inserirQuarto")
-	private Map<String,Object> inserirQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
+	private List<Quarto> inserirQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
 		return manterDadosQuarto(dadosQuarto,errors,inserirQuartoAcao);
 	}
 	
@@ -53,7 +57,7 @@ public class QuartoRest {
 			value="Atualizar os dados de determinado quarto", 
 			notes="Essa operação tem como objetivo atualizar os dados especificos de um quarto")
 	@PutMapping("/atualizarQuarto")
-	private Map<String,Object> atualizarQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
+	private List<Quarto> atualizarQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
 		return manterDadosQuarto(dadosQuarto,errors,atualizarQuartoAcao);
 	}
 	
@@ -61,17 +65,26 @@ public class QuartoRest {
 			value="Remover os dados de determinado quarto", 
 			notes="Essa operação tem como objetivo remover os dados especificos de um quarto")
 	@DeleteMapping("/deletarQuarto")
-	private Map<String,Object> excluirQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
+	private List<Quarto> excluirQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
 		return manterDadosQuarto(dadosQuarto,errors,deletarQuartoAcao);		
 	}
 	
-	private Map<String,Object> manterDadosQuarto(DadosQuarto dadosQuarto, Errors errors, int idAcao ) throws Exception{
+	@ApiOperation(
+			value="Consultar os dados de todos quartos", 
+			notes="Essa operação tem como objetivo consultar os dados especificos de todos os quartos")
+	@GetMapping("/consultarTodosQuartos")
+	private List<Quarto> consultarTodosQuartos() throws Exception {
+		return manterDadosQuarto(null,null,consultarTodos);		
+	}
+	
+	private List<Quarto> manterDadosQuarto(DadosQuarto dadosQuarto, Errors errors, int idAcao ) throws Exception{
 		
 		Quarto quarto = new Quarto();
-		Map<String, Object> retorno = new HashMap<String, Object>();
+		List<Quarto> listaTodos = new ArrayList<Quarto>();
+		
 		String erroDadosInformadosQuarto = "";
 		
-		if (errors.hasErrors()) {
+		if (idAcao != consultarTodos && errors.hasErrors()) {
 			erroDadosInformadosQuarto = errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(","));
 		} else {
 			TipoAcao tipoAcao = TipoAcao.getTipoAcaoByCode(idAcao);
@@ -90,17 +103,25 @@ public class QuartoRest {
 				case DELETAR:
 					quarto = quartoService.deletarQuarto(dadosQuarto);
 					break;
+				case CONSULTAR_TODOS:
+					listaTodos = quartoService.consultarTodos();
+					break;					
 				default:
 					erroDadosInformadosQuarto += "Tipo Ação inválido";
 					break;
 			}
 			
 		}
+
+		List<Quarto> listaQuarto = new ArrayList<Quarto>();
+
+		if(quarto.getId() != null ) {
+			listaQuarto.add(quarto);
+		} else {
+			listaQuarto = listaTodos;
+		}
 		
-		retorno.put("errosDadosInformados", erroDadosInformadosQuarto);
-		retorno.put("quarto", quarto);
-		
-		return retorno;
+		return listaQuarto;
 		
 	}
 }

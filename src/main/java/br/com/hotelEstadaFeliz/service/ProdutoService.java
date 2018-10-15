@@ -1,6 +1,7 @@
 package br.com.hotelEstadaFeliz.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -145,9 +146,14 @@ public class ProdutoService {
 		produto.setDescricao(dadosProduto.getDescricao());
 		produto.setPreco(dadosProduto.getPreco());
 		produto.setQuantidade(dadosProduto.getQuantidade());
-		
-
+		produto.setDataCriacao(dadosProduto.getDataCriacao());
+		produto.setStatus(dadosProduto.getStatus());
+		produto.setDataAlteracao(dadosProduto.getDataAlteracao());
 		
 		return produtoRepository.save(produto);
+	}
+	
+	public List<Produto> consultarTodos() {
+		return produtoRepository.findAll();
 	}
 }

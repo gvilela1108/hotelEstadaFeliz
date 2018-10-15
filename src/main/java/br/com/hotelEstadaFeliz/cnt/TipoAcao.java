@@ -6,6 +6,7 @@ public enum  TipoAcao {
 	INSERIR(1,"Indica a ação de inserir/registrar"),
 	ATUALIZAR(2,"Indica a ação de atualizar determinado registro"),
 	DELETAR(3,"Indica a ação de deletar determinado registro"),
+	CONSULTAR_TODOS(4,"Indica a ação de consultar todos os registros"),
 	TIPO_ACAO_INVALIDO(-1,"Filtro não mapeado!");
 	
     private final int code;
