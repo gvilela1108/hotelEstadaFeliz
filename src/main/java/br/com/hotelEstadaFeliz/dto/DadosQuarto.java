@@ -5,8 +5,8 @@ import javax.validation.constraints.NotNull;
 import br.com.hotelEstadaFeliz.beans.Quarto;
 
 public class DadosQuarto extends Quarto{
-    
-	@NotNull(message="Tipo Funcionário obrigatório")
+
+	@NotNull(message="Tipo Funcionario obrigatorio")
 	private Long idTipoFuncionario;
 	
 	public DadosQuarto() {

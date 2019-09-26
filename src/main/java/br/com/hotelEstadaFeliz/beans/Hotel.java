@@ -9,7 +9,7 @@ public class Hotel {
     private String id;
     private String nome;
     private Endereco endereco;
-    @NotNull(message="CNPJ obrigatório")
+    @NotNull(message="CNPJ obrigatorio")
     private Long cnpj;
     private String telefone;
     private Date dataCriacao;

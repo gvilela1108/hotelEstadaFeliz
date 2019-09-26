@@ -39,7 +39,7 @@ public class FuncionarioRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado funcionario", 
-			notes="Essa opera��o tem como objetivo consultar os dados especificos de um funcionario")
+			notes="Essa operação tem como objetivo consultar os dados especificos de um funcionario")
 	@PostMapping("/consultarFuncionario")
 	private List<Funcionario> consultarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {	
 		return manterDadosFuncionario(dadosFuncionario,errors,consultarFuncionarioAcao);

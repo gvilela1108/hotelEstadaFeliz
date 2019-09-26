@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 public class Pessoa {
 
     protected String id;
-    @NotNull(message="CPF obrigatório")
+    @NotNull(message="CPF obrigatorio")
     protected Long cpf;
     protected String nome;
     protected String telefone;

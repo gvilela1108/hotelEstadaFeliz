@@ -6,7 +6,7 @@ import br.com.hotelEstadaFeliz.beans.Hospedagem;
 
 public class DadosHospedagem extends Hospedagem{
 
-	@NotNull(message="Tipo Funcionário obrigatório")
+	@NotNull(message="Tipo Funcionario obrigatorio")
 	private Long idTipoFuncionario;
 	
 	public DadosHospedagem() {

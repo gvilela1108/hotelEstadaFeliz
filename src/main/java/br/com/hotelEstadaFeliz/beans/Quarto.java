@@ -8,11 +8,11 @@ public class Quarto {
 	
     private String id;
     private String tipo;
-    @NotNull(message="Número do quarto obrigatório")
+    @NotNull(message="Nï¿½mero do quarto obrigatorio")
     private String numero;
     private Float preco;
     private String descricao;
-    @NotNull(message="Id Hotel obrigatório")
+    @NotNull(message="Id Hotel obrigatorio")
     private String idHotel;
     private Date dataCriacao;
     private Date dataAlteracao;

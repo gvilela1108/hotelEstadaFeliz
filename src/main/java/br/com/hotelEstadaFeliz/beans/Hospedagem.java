@@ -6,11 +6,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class Hospedagem {
 	private String id;
-	@NotBlank(message="Codigo cliente obrigatório")
+	@NotBlank(message="Codigo cliente obrigatorio")
 	private String idCliente;
-	@NotBlank(message="Codigo hotel obrigatório")
+	@NotBlank(message="Codigo hotel obrigatorio")
 	private String idHotel;
-	@NotBlank(message="Codigo quarto obrigatório")
+	@NotBlank(message="Codigo quarto obrigatorio")
 	private String idQuarto;
 	private Consumo consumo;
 	private String checkin;

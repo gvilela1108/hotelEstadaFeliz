@@ -6,7 +6,7 @@ public class Funcionario extends Pessoa{
 	
 	private String senha;
 	private Float salario;
-	@NotNull(message="Tipo Função 1-> Proprietario 2-> Recepção obrigatório")
+	@NotNull(message="Tipo Funcao 1-> Proprietario 2-> Operador")
 	private Long tipoFuncionario;
     private String erroFuncionario;
 	
