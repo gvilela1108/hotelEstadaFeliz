@@ -39,7 +39,7 @@ public class HospedagemRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado hospedagem", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de um hospedagem")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de um hospedagem")
 	@PostMapping("/consultarHospedagem")
 	private List<Hospedagem> consultarHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {	
 		return manterDadosHospedagem(dadosHospedagem,errors,consultarHospedagemAcao);
@@ -47,7 +47,7 @@ public class HospedagemRest {
 	
 	@ApiOperation(
 			value="Cadastrar os dados de determinado hospedagem", 
-			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um hospedagem")
+			notes="Essa operaÃ§Ã£o tem como objetivo cadastrar no sistema os dados especificos de um hospedagem")
 	@PostMapping("/inserirHospedagem")
 	private List<Hospedagem> inserirHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
 		return manterDadosHospedagem(dadosHospedagem,errors,inserirHospedagemAcao);
@@ -55,7 +55,7 @@ public class HospedagemRest {
 	
 	@ApiOperation(
 			value="Atualizar os dados de determinado hospedagem", 
-			notes="Essa operação tem como objetivo atualizar os dados especificos de um hospedagem")
+			notes="Essa operaÃ§Ã£o tem como objetivo atualizar os dados especificos de um hospedagem")
 	@PutMapping("/atualizarHospedagem")
 	private List<Hospedagem> atualizarHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
 		return manterDadosHospedagem(dadosHospedagem,errors,atualizarHospedagemAcao);
@@ -63,7 +63,7 @@ public class HospedagemRest {
 	
 	@ApiOperation(
 			value="Remover os dados de determinado hospedagem", 
-			notes="Essa operação tem como objetivo remover os dados especificos de um hospedagem")
+			notes="Essa operaÃ§Ã£o tem como objetivo remover os dados especificos de um hospedagem")
 	@DeleteMapping("/deletarHospedagem")
 	private List<Hospedagem> excluirHospedagem(@Valid @RequestBody DadosHospedagem dadosHospedagem, Errors errors) throws Exception {
 		return manterDadosHospedagem(dadosHospedagem,errors,deletarHospedagemAcao);		
@@ -71,7 +71,7 @@ public class HospedagemRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de todas hospedagens", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de todos as hospedagens")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de todos as hospedagens")
 	@GetMapping("/consultarTodasHospedagens")
 	private List<Hospedagem> consultarTodosHospedagems() throws Exception {
 		return manterDadosHospedagem(null,null,consultarTodos);		
@@ -107,7 +107,7 @@ public class HospedagemRest {
 					listaTodos = hospedagemService.consultarTodos();
 					break;					
 				default:
-					erroDadosInformadosHospedagem += "Tipo Ação inválido";
+					erroDadosInformadosHospedagem += "Tipo Aï¿½ï¿½o invï¿½lido";
 					break;
 			}
 			

@@ -39,7 +39,7 @@ public class ProdutoRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado produto", 
-			notes="Essa operaÁ„o tem como objetivo consultar os dados especificos de um produto")
+			notes="Essa opera√ß√£o tem como objetivo consultar os dados especificos de um produto")
 	@PostMapping("/consultarProduto")
 	private List<Produto> consultarProduto(@Valid @RequestBody DadosProduto dadosProduto, Errors errors) throws Exception {	
 		return manterDadosProduto(dadosProduto,errors,consultarProdutoAcao);
@@ -47,7 +47,7 @@ public class ProdutoRest {
 	
 	@ApiOperation(
 			value="Cadastrar os dados de determinado produto", 
-			notes="Essa operaÁ„o tem como objetivo cadastrar no sistema os dados especificos de um produto")
+			notes="Essa opera√ß√£o tem como objetivo cadastrar no sistema os dados especificos de um produto")
 	@PostMapping("/inserirProduto")
 	private List<Produto> inserirProduto(@Valid @RequestBody DadosProduto dadosProduto, Errors errors) throws Exception {
 		return manterDadosProduto(dadosProduto,errors,inserirProdutoAcao);
@@ -55,7 +55,7 @@ public class ProdutoRest {
 	
 	@ApiOperation(
 			value="Atualizar os dados de determinado produto", 
-			notes="Essa operaÁ„o tem como objetivo atualizar os dados especificos de um produto")
+			notes="Essa opera√ß√£o tem como objetivo atualizar os dados especificos de um produto")
 	@PutMapping("/atualizarProduto")
 	private List<Produto> atualizarProduto(@Valid @RequestBody DadosProduto dadosProduto, Errors errors) throws Exception {
 		return manterDadosProduto(dadosProduto,errors,atualizarProdutoAcao);
@@ -63,7 +63,7 @@ public class ProdutoRest {
 	
 	@ApiOperation(
 			value="Remover os dados de determinado produto", 
-			notes="Essa operaÁ„o tem como objetivo remover os dados especificos de um produto")
+			notes="Essa opera√ß√£o tem como objetivo remover os dados especificos de um produto")
 	@DeleteMapping("/deletarProduto")
 	private List<Produto> excluirProduto(@Valid @RequestBody DadosProduto dadosProduto, Errors errors) throws Exception {
 		return manterDadosProduto(dadosProduto,errors,deletarProdutoAcao);		
@@ -71,7 +71,7 @@ public class ProdutoRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de todos produtos", 
-			notes="Essa operaÁ„o tem como objetivo consultar os dados especificos de todos os produtos")
+			notes="Essa opera√ß√£o tem como objetivo consultar os dados especificos de todos os produtos")
 	@GetMapping("/consultarTodosProdutos")
 	private List<Produto> consultarTodosProdutos() throws Exception {
 		return manterDadosProduto(null,null,consultarTodos);		
@@ -107,7 +107,7 @@ public class ProdutoRest {
 					listaTodos = produtoService.consultarTodos();
 					break;					
 				default:
-					erroDadosInformadosProduto += "Tipo AÁ„o inv·lido";
+					erroDadosInformadosProduto += "Tipo A√ß√£o inv√°lido";
 					break;
 			}
 			

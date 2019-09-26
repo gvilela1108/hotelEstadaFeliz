@@ -30,7 +30,7 @@ public class LoginRest {
 	
 	@ApiOperation(
 			value="Realizar o login do sistema", 
-			notes="Essa operaÁ„o tem como objetivo acessar o sistema e retornar o devido tipo de acesso do funcion·rio")
+			notes="Essa opera√ß√£o tem como objetivo acessar o sistema e retornar o devido tipo de acesso do funcionario")
 	@PostMapping("/login")
 	private List<Login> login(@Valid @RequestBody DadosLogin dadosLogin, Errors errors) throws Exception {
 		
@@ -51,10 +51,10 @@ public class LoginRest {
 					login.setSenha(funcionario.getSenha());
 					login.setIdTipoFuncionario(funcionario.getTipoFuncionario());
 				} else {
-					errosLogin = "Erro ao recuperar o perfil do usu·rio";
+					errosLogin = "Erro ao recuperar o perfil do usuario";
 				}
 			} else {
-				errosLogin = "Dados de Login n„o encontrados";
+				errosLogin = "Dados de Login n√£o encontrados";
 			}
 		}
 

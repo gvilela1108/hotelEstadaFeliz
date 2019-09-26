@@ -9,13 +9,13 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Produto {
 	
 	private String id;
-	@NotBlank(message="Nome do produto obrigatório")
+	@NotBlank(message="Nome do produto obrigatÃ³rio")
 	private String nome;
-	@NotNull(message="Preço do produto obrigatório")
+	@NotNull(message="PreÃ§o do produto obrigatÃ³rio")
 	private Float preco;
 	private String descricao;
 	private String status;
-	@NotNull(message="Quantidade obrigatória")
+	@NotNull(message="Quantidade obrigatÃ³ria")
 	private Long quantidade;
 	private String erroProduto;
 	private Date dataCriacao;

@@ -39,7 +39,7 @@ public class QuartoRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado quarto", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de um quarto")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de um quarto")
 	@PostMapping("/consultarQuarto")
 	private List<Quarto> consultarQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {	
 		return manterDadosQuarto(dadosQuarto,errors,consultarQuartoAcao);
@@ -47,7 +47,7 @@ public class QuartoRest {
 	
 	@ApiOperation(
 			value="Cadastrar os dados de determinado quarto", 
-			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um quarto")
+			notes="Essa operaÃ§Ã£o tem como objetivo cadastrar no sistema os dados especificos de um quarto")
 	@PostMapping("/inserirQuarto")
 	private List<Quarto> inserirQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
 		return manterDadosQuarto(dadosQuarto,errors,inserirQuartoAcao);
@@ -55,7 +55,7 @@ public class QuartoRest {
 	
 	@ApiOperation(
 			value="Atualizar os dados de determinado quarto", 
-			notes="Essa operação tem como objetivo atualizar os dados especificos de um quarto")
+			notes="Essa operaÃ§Ã£o tem como objetivo atualizar os dados especificos de um quarto")
 	@PutMapping("/atualizarQuarto")
 	private List<Quarto> atualizarQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
 		return manterDadosQuarto(dadosQuarto,errors,atualizarQuartoAcao);
@@ -63,7 +63,7 @@ public class QuartoRest {
 	
 	@ApiOperation(
 			value="Remover os dados de determinado quarto", 
-			notes="Essa operação tem como objetivo remover os dados especificos de um quarto")
+			notes="Essa operaÃ§Ã£o tem como objetivo remover os dados especificos de um quarto")
 	@DeleteMapping("/deletarQuarto")
 	private List<Quarto> excluirQuarto(@Valid @RequestBody DadosQuarto dadosQuarto, Errors errors) throws Exception {
 		return manterDadosQuarto(dadosQuarto,errors,deletarQuartoAcao);		
@@ -71,7 +71,7 @@ public class QuartoRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de todos quartos", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de todos os quartos")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de todos os quartos")
 	@GetMapping("/consultarTodosQuartos")
 	private List<Quarto> consultarTodosQuartos() throws Exception {
 		return manterDadosQuarto(null,null,consultarTodos);		
@@ -107,7 +107,7 @@ public class QuartoRest {
 					listaTodos = quartoService.consultarTodos();
 					break;					
 				default:
-					erroDadosInformadosQuarto += "Tipo Ação inválido";
+					erroDadosInformadosQuarto += "Tipo Aï¿½ï¿½o invï¿½lido";
 					break;
 			}
 			

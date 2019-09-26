@@ -41,24 +41,24 @@ public class ProdutoService {
 		boolean erroRegistro = false;
 		
 		try {
-			//Verifica se o produto já esta registrado
+			//Verifica se o produto ja esta registrado
 			Produto existeProduto = produtoRepository.findByNome(dadosProduto.getNome());
 			
-			if (existeProduto == null) { //Produto não existe
+			if (existeProduto == null) { //Produto nï¿½o existe
 				dadosProduto.setDataCriacao(dataSistema);
 				retorno = salvarProduto(dadosProduto);
-			} else { //Produto já existente
+			} else { //Produto jï¿½ existente
 				retorno = existeProduto;
 			}
 			
-			//Validações pre retorno
+			//Validacoes pre retorno
 			if (retorno != null) {
 				if (retorno.getId().equals("")) {
 					erroRegistro = true;
 				}
 				
 				if (retorno.getDataCriacao().before(dataSistema) ) {
-					errosRegistrarProduto += " - Produto já está cadastrado";
+					errosRegistrarProduto += " - Produto ja esta cadastrado";
 					erroRegistro = true;
 				}
 			} else {
@@ -85,13 +85,13 @@ public class ProdutoService {
 		String errosAtualizarProduto = "";
 		
 		try {
-			//Verifica se o produto já esta registrado
+			//Verifica se o produto ja esta registrado
 			Produto existeProduto = produtoRepository.findByNome(dadosProduto.getNome());
 			
-			if (existeProduto == null) { //Produto não existe
-				retorno.setErroProduto("Produto não está cadastrado");
+			if (existeProduto == null) { //Produto nï¿½o existe
+				retorno.setErroProduto("Produto nao esta cadastrado");
 			} else { //Produto existente
-				//Recupera dados chaves para atualização
+				//Recupera dados chaves para atualizaï¿½ï¿½o
 				dadosProduto.setId(existeProduto.getId());
 				dadosProduto.setDataCriacao(existeProduto.getDataCriacao());
 				dadosProduto.setDataAlteracao(dataSistema);
@@ -99,7 +99,7 @@ public class ProdutoService {
 				retorno = salvarProduto(dadosProduto);
 			}
 			
-			//Validações pre retorno
+			//Validacoes pre retorno
 			if (retorno == null) {
 				errosAtualizarProduto = "Erro ao atualizar o produto";
 			}
@@ -117,12 +117,12 @@ public class ProdutoService {
 	public Produto deletarProduto(DadosProduto dadosProduto) {
 		Produto retorno = new Produto();
 		try {
-			//Verifica se o produto já esta registrado
+			//Verifica se o produto ja esta registrado
 			Produto existeProduto = produtoRepository.findByNome(dadosProduto.getNome());
 			
-			if (existeProduto == null) { //Produto não existe
-				retorno.setErroProduto("Produto não está cadastrado");
-			} else { //Produto já existente
+			if (existeProduto == null) { //Produto nao existe
+				retorno.setErroProduto("Produto nao esta cadastrado");
+			} else { //Produto jï¿½ existente
 				produtoRepository.delete(existeProduto);
 			}
 			

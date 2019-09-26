@@ -39,7 +39,7 @@ public class ClienteRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado cliente", 
-			notes="Essa operaÁ„o tem como objetivo consultar os dados especificos de um cliente")
+			notes="Essa opera√ß√£o tem como objetivo consultar os dados especificos de um cliente")
 	@PostMapping("/consultarCliente")
 	private List<Cliente> consultarCliente(@Valid @RequestBody DadosCliente dadosCliente, Errors errors) throws Exception {	
 		return manterDadosCliente(dadosCliente,errors,consultarClienteAcao);
@@ -47,7 +47,7 @@ public class ClienteRest {
 	
 	@ApiOperation(
 			value="Cadastrar os dados de determinado cliente", 
-			notes="Essa operaÁ„o tem como objetivo cadastrar no sistema os dados especificos de um cliente")
+			notes="Essa opera√ß√£o tem como objetivo cadastrar no sistema os dados especificos de um cliente")
 	@PostMapping("/inserirCliente")
 	private List<Cliente> inserirCliente(@Valid @RequestBody DadosCliente dadosCliente, Errors errors) throws Exception {
 		return manterDadosCliente(dadosCliente,errors,inserirClienteAcao);
@@ -55,7 +55,7 @@ public class ClienteRest {
 	
 	@ApiOperation(
 			value="Atualizar os dados de determinado cliente", 
-			notes="Essa operaÁ„o tem como objetivo atualizar os dados especificos de um cliente")
+			notes="Essa opera√ß√£o tem como objetivo atualizar os dados especificos de um cliente")
 	@PutMapping("/atualizarCliente")
 	private List<Cliente> atualizarCliente(@Valid @RequestBody DadosCliente dadosCliente, Errors errors) throws Exception {
 		return manterDadosCliente(dadosCliente,errors,atualizarClienteAcao);
@@ -63,7 +63,7 @@ public class ClienteRest {
 	
 	@ApiOperation(
 			value="Remover os dados de determinado cliente", 
-			notes="Essa operaÁ„o tem como objetivo remover os dados especificos de um cliente")
+			notes="Essa opera√ß√£o tem como objetivo remover os dados especificos de um cliente")
 	@DeleteMapping("/deletarCliente")
 	private List<Cliente> excluirCliente(@Valid @RequestBody DadosCliente dadosCliente, Errors errors) throws Exception {
 		return manterDadosCliente(dadosCliente,errors,deletarClienteAcao);		
@@ -71,7 +71,7 @@ public class ClienteRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de todos clientes", 
-			notes="Essa operaÁ„o tem como objetivo consultar os dados especificos de todos os clientes")
+			notes="Essa opera√ß√£o tem como objetivo consultar os dados especificos de todos os clientes")
 	@GetMapping("/consultarTodosClientes")
 	private List<Cliente> consultarTodosClientes() throws Exception {
 		return manterDadosCliente(null,null,consultarTodos);		
@@ -107,7 +107,7 @@ public class ClienteRest {
 					listaTodos = clienteService.consultarTodos();
 					break;					
 				default:
-					erroDadosInformadosCliente += "Tipo AÁ„o inv·lido";
+					erroDadosInformadosCliente += "Tipo A√ß√£o inv√°lido";
 					break;
 			}
 			

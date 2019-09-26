@@ -39,7 +39,7 @@ public class HotelRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado hotel", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de um hotel")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de um hotel")
 	@PostMapping("/consultarHotel")
 	private List<Hotel> consultarHotel(@Valid @RequestBody DadosHotel dadosHotel, Errors errors) throws Exception {	
 		return manterDadosHotel(dadosHotel,errors,consultarHotelAcao);
@@ -47,7 +47,7 @@ public class HotelRest {
 	
 	@ApiOperation(
 			value="Cadastrar os dados de determinado hotel", 
-			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um hotel")
+			notes="Essa operaÃ§Ã£o tem como objetivo cadastrar no sistema os dados especificos de um hotel")
 	@PostMapping("/inserirHotel")
 	private List<Hotel> inserirHotel(@Valid @RequestBody DadosHotel dadosHotel, Errors errors) throws Exception {
 		return manterDadosHotel(dadosHotel,errors,inserirHotelAcao);
@@ -55,7 +55,7 @@ public class HotelRest {
 	
 	@ApiOperation(
 			value="Atualizar os dados de determinado hotel", 
-			notes="Essa operação tem como objetivo atualizar os dados especificos de um hotel")
+			notes="Essa operaÃ§Ã£o tem como objetivo atualizar os dados especificos de um hotel")
 	@PutMapping("/atualizarHotel")
 	private List<Hotel> atualizarHotel(@Valid @RequestBody DadosHotel dadosHotel, Errors errors) throws Exception {
 		return manterDadosHotel(dadosHotel,errors,atualizarHotelAcao);
@@ -63,7 +63,7 @@ public class HotelRest {
 	
 	@ApiOperation(
 			value="Remover os dados de determinado hotel", 
-			notes="Essa operação tem como objetivo remover os dados especificos de um hotel")
+			notes="Essa operaÃ§Ã£o tem como objetivo remover os dados especificos de um hotel")
 	@DeleteMapping("/deletarHotel")
 	private List<Hotel> excluirHotel(@Valid @RequestBody DadosHotel dadosHotel, Errors errors) throws Exception {
 		return manterDadosHotel(dadosHotel,errors,deletarHotelAcao);		
@@ -71,7 +71,7 @@ public class HotelRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de todos hoteis", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de todos os hotels")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de todos os hotels")
 	@GetMapping("/consultarTodosHoteis")
 	private List<Hotel> consultarTodosHotels() throws Exception {
 		return manterDadosHotel(null,null,consultarTodos);		
@@ -107,7 +107,7 @@ public class HotelRest {
 					listaTodos = hotelService.consultarTodos();
 					break;					
 				default:
-					erroDadosInformadosHotel += "Tipo Ação inválido";
+					erroDadosInformadosHotel += "Tipo Aï¿½ï¿½o invï¿½lido";
 					break;
 			}
 			

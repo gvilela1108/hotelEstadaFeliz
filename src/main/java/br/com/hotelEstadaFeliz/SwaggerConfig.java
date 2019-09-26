@@ -34,7 +34,7 @@ public class SwaggerConfig {
 		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
  
 		apiInfoBuilder.title("API Estada Feliz");
-		apiInfoBuilder.description("API para realização de ações de um hotel.");
+		apiInfoBuilder.description("API para realizaÃ§Ã£o de aÃ§Ãµes de um hotel.");
 		apiInfoBuilder.version("1.0");
 
 		return apiInfoBuilder;

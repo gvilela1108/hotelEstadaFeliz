@@ -6,7 +6,7 @@ import br.com.hotelEstadaFeliz.beans.Produto;
 
 public class DadosProduto extends Produto{
 
-	@NotNull(message="Tipo Funcion·rio obrigatÛrio")
+	@NotNull(message="Tipo Funcion√°rio obrigat√≥rio")
 	private Long idTipoFuncionario;
 	
 	public DadosProduto() {

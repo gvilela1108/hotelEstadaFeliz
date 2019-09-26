@@ -39,7 +39,7 @@ public class FuncionarioRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de determinado funcionario", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de um funcionario")
+			notes="Essa operaï¿½ï¿½o tem como objetivo consultar os dados especificos de um funcionario")
 	@PostMapping("/consultarFuncionario")
 	private List<Funcionario> consultarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {	
 		return manterDadosFuncionario(dadosFuncionario,errors,consultarFuncionarioAcao);
@@ -47,7 +47,7 @@ public class FuncionarioRest {
 	
 	@ApiOperation(
 			value="Cadastrar os dados de determinado funcionario", 
-			notes="Essa operação tem como objetivo cadastrar no sistema os dados especificos de um funcionario")
+			notes="Essa operaÃ§Ã£o tem como objetivo cadastrar no sistema os dados especificos de um funcionario")
 	@PostMapping("/inserirFuncionario")
 	private List<Funcionario> inserirFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
 		return manterDadosFuncionario(dadosFuncionario,errors,inserirFuncionarioAcao);
@@ -55,7 +55,7 @@ public class FuncionarioRest {
 	
 	@ApiOperation(
 			value="Atualizar os dados de determinado funcionario", 
-			notes="Essa operação tem como objetivo atualizar os dados especificos de um funcionario")
+			notes="Essa operaÃ§Ã£o tem como objetivo atualizar os dados especificos de um funcionario")
 	@PutMapping("/atualizarFuncionario")
 	private List<Funcionario> atualizarFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
 		return manterDadosFuncionario(dadosFuncionario,errors,atualizarFuncionarioAcao);
@@ -63,7 +63,7 @@ public class FuncionarioRest {
 	
 	@ApiOperation(
 			value="Remover os dados de determinado funcionario", 
-			notes="Essa operação tem como objetivo remover os dados especificos de um funcionario")
+			notes="Essa operaÃ§Ã£o tem como objetivo remover os dados especificos de um funcionario")
 	@DeleteMapping("/deletarFuncionario")
 	private List<Funcionario> excluirFuncionario(@Valid @RequestBody DadosFuncionario dadosFuncionario, Errors errors) throws Exception {
 		return manterDadosFuncionario(dadosFuncionario,errors,deletarFuncionarioAcao);		
@@ -71,7 +71,7 @@ public class FuncionarioRest {
 	
 	@ApiOperation(
 			value="Consultar os dados de todos funcionarios", 
-			notes="Essa operação tem como objetivo consultar os dados especificos de todos os funcionarios")
+			notes="Essa operaÃ§Ã£o tem como objetivo consultar os dados especificos de todos os funcionarios")
 	@GetMapping("/consultarTodosFuncionarios")
 	private List<Funcionario> consultarTodosFuncionarios() throws Exception {
 		return manterDadosFuncionario(null,null,consultarTodos);		
@@ -107,7 +107,7 @@ public class FuncionarioRest {
 					listaTodos = funcionarioService.consultarTodos();
 					break;					
 				default:
-					erroDadosInformadosFuncionario += "Tipo Ação inválido";
+					erroDadosInformadosFuncionario += "Tipo Aï¿½ï¿½o invï¿½lido";
 					break;
 			}
 			
